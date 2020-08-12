@@ -51,7 +51,9 @@ app.set('view engine', 'ejs');
 
 
 app.get('/', (req, res)=>{
-  res.render('index');
+  res.render('index', {
+    data : video
+  });
 });
 
 app.get('/video', function(req, res) {

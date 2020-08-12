@@ -1,3 +1,19 @@
+var dark = false;
+
+if(document.cookie.includes('dark=')) {
+    var cookies = document.cookie.split(';')
+    cookies.forEach(function(item){
+        if(item.includes('dark=')) {
+            dark =  item.split('=')[1];
+        }
+    })
+}
+
+if(dark == 'true') {
+    var element = document.body; 
+    element.classList.add("dark"); 
+}
+
 document.getElementsByClassName("submit-button")[0].addEventListener("click", function() {
     var video = {};
     video.title = document.getElementById("title").value;
@@ -27,21 +43,33 @@ document.getElementsByClassName("submit-button")[0].addEventListener("click", fu
     })
 })
 
-document.getElementsByClassName("submit-id")[0].addEventListener("click", function() {
-    var id = {};
-    id.id = parseInt(document.getElementById("id").value);
-
-    fetch("/upvote", { 
-        method: "POST", 
-        body: JSON.stringify(id),
-        headers: { 
-            "Content-type": "application/json"
-        } 
-    }).then(function(response) {
-        response.json()
-    }).then(function(data) {
-        console.log(data);
-    }).catch(function(err) {
-        console.log(err);
+var buttons = document.getElementsByClassName("submit-id")
+for(var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function() {
+        var id = {};
+        id.id = parseInt(this.id) + 1;
+        fetch("/upvote", { 
+            method: "POST", 
+            body: JSON.stringify(id),
+            headers: { 
+                "Content-type": "application/json"
+            } 
+        }).then(function(response) {
+            response.json()
+        }).then(function(data) {
+            console.log(data);
+        }).catch(function(err) {
+            console.log(err);
+        })
     })
-})
+}
+
+function myFunction() { 
+    var element = document.body; 
+    element.classList.toggle("dark"); 
+    if(element.classList.contains("dark")) {
+        dark = true;
+    }
+    else dark = false;
+    document.cookie = "dark=" + dark;
+} 

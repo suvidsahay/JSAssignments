@@ -5,14 +5,35 @@
         <title>Home Page</title> 
         
         <style type="text/css" media="screen">
-                body {
-                        background-color: skyblue;
-                        text-decoration-color: white;
-                }
+                body{ 
+                padding:0% 3% 10% 3%; 
+                } 
+                h1{ 
+                color: #32a852; 
+                margin-top:30px; 
+                } 
+        
+                button{ 
+                cursor: pointer; 
+                border: 1px solid #555; 
+                text-align: center; 
+                padding: 5px; 
+                margin-left: 8px;  
+                } 
+                .dark{ 
+                background-color: #222; 
+                color: #e6e6e6; 
+                } 
         </style> 
 </head> 
 
 <body> 
+        <% data.forEach(function(element, index){ %>
+                <h1> <%= element.title %> </h1>
+                URL : <a href=" <%= element.url %> "><%= element.url %></a><br>
+                claps : <%= element.claps %> <br>
+                <button class="submit-id" id="<%= index %>">Upvote</button>
+        <% }) %>
         <h1>Add a new field</h1>
         <label for="title">Title:</label>
         <input type="text" id="title" name="title"><br><br>
@@ -30,12 +51,9 @@
         <input type="text" id="s-title" name="s-title"><br><br>
         <label for="location">Speaker Lcation:</label>
         <input type="text" id="location" name="location"><br><br>
-        <input type="button" class="submit-button" value="Submit">
+        <input type="button" class="submit-button" value="Submit"><br><br>
 
-        <h1>Upvote a video</h1>
-        <label for="id">Enter ID:</label>
-        <input type="text" id="id" name="id"><br><br>
-        <input type="button" class="submit-id" value="Submit">
+        <button onclick="myFunction()">Switch mode</button>  
 </body>
 <script src="index.js"></script>
 
